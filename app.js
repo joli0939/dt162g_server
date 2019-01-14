@@ -55,31 +55,6 @@ app.get('/trophies', function(req, res) {
 });
 
 
-// Tar emot ett POST-anrop för att kontrollera inloggning
-app.post('/login/post', function(req, res) {
-  var login = new Login();
-  var returnBool = false;
-  var loginId = '5c35c170e7179a7d1241d253';
-
-  login.username = req.body.username;
-  login.password = req.body.password;
-
-  // Kontrollerar medskickade användarnamn och lösenord mot angivet dokument i databasen
-  Login.findById(loginId, function(err, loginCompare) {
-    if(err){
-      res.send(err);
-    }
-
-    if(login.username === loginCompare.username && login.password === loginCompare.password) {
-      returnBool = true;
-    }
-
-    res.send(returnBool);
-  });
-
-})
-
-
 
 // DELETE tar bort post med valt ID
 app.delete('/trophies/delete/:id', function(req, res) {
@@ -157,6 +132,32 @@ app.put('/trophies/update/:id', function(req, res) {
     console.log("Trophy uppdaterad");
   });
   
+});
+
+
+
+// Tar emot ett POST-anrop för att kontrollera inloggning
+app.post('/login/post', function(req, res) {
+  var login = new Login();
+  var returnBool = false;
+  var loginId = '5c35c170e7179a7d1241d253';
+
+  login.username = req.body.username;
+  login.password = req.body.password;
+
+  // Kontrollerar medskickade användarnamn och lösenord mot angivet dokument i databasen
+  Login.findById(loginId, function(err, loginCompare) {
+    if(err){
+      res.send(err);
+    }
+
+    if(login.username === loginCompare.username && login.password === loginCompare.password) {
+      returnBool = true;
+    }
+
+    res.send(returnBool);
+  });
+
 });
 
 
