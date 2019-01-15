@@ -146,12 +146,13 @@ app.post('/login/post', function(req, res) {
   login.password = req.body.password;
 
   // Kontrollerar medskickade användarnamn och lösenord mot angivet dokument i databasen
+  // Om användarnamn och lösenord stämmer returneras true, annars false
   Login.findById(loginId, function(err, loginCompare) {
     if(err){
       res.send(err);
     }
 
-    if(login.username === loginCompare.username && login.password === loginCompare.password) {
+    if(login.username.toLowerCase() === loginCompare.username.toLowerCase() && login.password === loginCompare.password) {
       returnBool = true;
     }
 
