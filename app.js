@@ -68,8 +68,8 @@ app.delete('/trophies/delete/:id', function(req, res) {
         res.send(err);
       }
   
-      res.send({ message: "Trophy borttagen"});
-      console.log("Trophy med id " + deleteId + " är borttagen");
+      res.send({ message: "Trophie borttagen"});
+      console.log("Trophie med id " + deleteId + " är borttagen");
   
     });
 });
@@ -80,26 +80,30 @@ app.delete('/trophies/delete/:id', function(req, res) {
 app.post('/trophies/add', function(req, res) {
 
     // Ny instans av Trophies
-    var trophy = new Trophies();
+    var trophie = new Trophies();
   
     // Nytt objekt med data som fyllts i av användaren
-    trophy.name = req.body.name;
-    trophy.description = req.body.description;
-    trophy.value = req.body.value;
-    trophy.date = req.body.date;
-    trophy.game = req.body.game;
-    trophy.link = req.body.link;
+    trophie.name = req.body.name;
+    trophie.description = req.body.description;
+    trophie.value = req.body.value;
+    trophie.date = req.body.date;
+    trophie.game = req.body.game;
+    trophie.link = req.body.link;
+
+    trophie.validate(function(error) {
+      res.send("ERROR: " + error);
+    })
   
     // Lagrar objekt och skriver ut eventuella felmeddelanden
-    trophy.save(function(err) {
+    trophie.save(function(err) {
       if(err) {
         res.send(err);
       }
-    })
-  
-    res.send(trophy);
-    console.log("Trophy tillagd")
-  
+
+      res.send({message: "Trophie tillagd"});
+      console.log("Trophie tillagd")
+
+    });  
 });
 
 
@@ -110,26 +114,27 @@ app.put('/trophies/update/:id', function(req, res) {
   let updateId = req.params.id;
 
   // Ny instans av Trophies
-  var trophy = new Trophies();
+  var trophie = new Trophies();
   
   // Ger värden till medlemsvariabler i instansen av Trophies, både data som inte ska ändars och data som ska ändras
-  trophy.name = req.body.name;
-  trophy.description = req.body.description;
-  trophy.value = req.body.value;
-  trophy.date = req.body.date;
-  trophy.game = req.body.game;
-  trophy.link = req.body.link;
+  trophie.name = req.body.name;
+  trophie.description = req.body.description;
+  trophie.value = req.body.value;
+  trophie.date = req.body.date;
+  trophie.game = req.body.game;
+  trophie.link = req.body.link;
 
 
   // Gör anrop till MongoDB-databas och uppdaterar dokument med valt id
-  Trophies.findByIdAndUpdate(updateId, { $set: {name: trophy.name, description: trophy.description, value: trophy.value, date: trophy.date, game: trophy.game, link: trophy.link}}, { new: true }, function (err, returnTrophy) {
+  Trophies.findByIdAndUpdate(updateId, { $set: {name: trophie.name, description: trophie.description, value: trophie.value, date: trophie.date, game: trophie.game, link: trophie.link}}, { new: true }, function (err, returnTrophie) {
     if (err) {
       res.send(err);
     }
 
     // Returnerar det uppdaterade dokumentet
-    res.send(returnTrophy);
-    console.log("Trophy uppdaterad");
+    res.send({message: "Trophie uppdaterad"});
+    console.log("Trophie uppdaterad");
+
   });
   
 });
