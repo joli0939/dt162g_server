@@ -92,7 +92,7 @@ app.post('/trophies/add', function(req, res) {
 
     trophie.validate(function(error) {
       res.send("ERROR: " + error);
-    })
+    });
   
     // Lagrar objekt och skriver ut eventuella felmeddelanden
     trophie.save(function(err) {
@@ -123,6 +123,10 @@ app.put('/trophies/update/:id', function(req, res) {
   trophie.date = req.body.date;
   trophie.game = req.body.game;
   trophie.link = req.body.link;
+
+  trophie.validate(function(error) {
+    res.send("ERROR: " + error);
+  });
 
 
   // Gör anrop till MongoDB-databas och uppdaterar dokument med valt id
