@@ -90,6 +90,7 @@ app.post('/trophies/add', function(req, res) {
     trophie.game = req.body.game;
     trophie.link = req.body.link;
 
+    // Kontrollerar att värden är ifyllda innan lagring
     trophie.validate(function(error) {
       res.send("ERROR: " + error);
     });
@@ -124,6 +125,7 @@ app.put('/trophies/update/:id', function(req, res) {
   trophie.game = req.body.game;
   trophie.link = req.body.link;
 
+  // Kontrollerar att värden är ifyllda innan lagring
   trophie.validate(function(error) {
     res.send("ERROR: " + error);
   });
