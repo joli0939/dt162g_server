@@ -101,8 +101,8 @@ app.post('/trophies/add', function(req, res) {
         res.send(err);
       }
 
-      // Skickar tillbaka en kopia av tillagd objekt
-      res.send({trophie});
+      // Skickar tillbaka en kopia av tillagt objekt
+      res.send(trophie);
       console.log("Trophie tillagd")
 
     });  
