@@ -130,7 +130,9 @@ app.put('/trophies/update/:id', function(req, res) {
 
   // Kontrollerar att värden är ifyllda innan lagring
   trophie.validate(function(error) {
-    res.send("ERROR: " + error);
+    if(error){
+      res.send("ERROR: " + error);
+    }
   });
 
 
